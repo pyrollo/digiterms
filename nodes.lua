@@ -31,7 +31,6 @@ minetest.register_node('digimons:cathodic_amber_monitor', {
   node_box = {
     type = "fixed",
     fixed = {
-
       {-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
       {-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
       {-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
@@ -45,53 +44,43 @@ minetest.register_node('digimons:cathodic_amber_monitor', {
         on_display_update = font_api.on_display_update,
         depth = -7/16 - display_api.entity_spacing,
         top = -1/16,
-        aspect_ratio = 0.4, maxlines = 6,
-        size = { x = 12/16, y = 10/16 },
-        color = "#FFA000", font = "mozart", halign="left", valing="top",
+        aspect_ratio = 0.5, maxlines = 6,
+        size = { x = 23/32, y = 10/16 },
+        color = "#FFA000", font_name = "mozart", halign="left", valing="top",
     },
   },
   on_place = function(itemstack, placer, pointed_thing)
       minetest.rotate_node(itemstack, placer, pointed_thing)
       return display_api.on_place(itemstack, placer, pointed_thing)
     end,
-  on_construct = 	function(pos)
-      local meta = minetest.get_meta(pos)
---[==[      meta:set_string("formspec", string.format([=[
-        size[6,4]%s%s%s
-        textarea[0.5,0.7;5.5,2;display_text;%s;${display_text}]
-        button[1,3;2,1;font;%s]
-        button_exit[3,3;2,1;ok;%s]]=],
-        default.gui_bg, default.gui_bg_img, default.gui_slots,
-        F("Displayed text (3 lines max)"),
-        F("Font"), F("Write")))
-    ]==]
+  on_construct = function(pos)
+      minetest.get_meta(pos):set_string("formspec",
+        "field[channel;Channel;${channel}]")
       display_api.on_construct(pos)
-    end,
-  on_rightclick = function(pos, node, player)
-      local meta = minetest.get_meta(pos)
-      meta:set_string("display_text", [[0123456789012345678901234567890
-?SYNTAX ERROR
-READY
->
->
->
->]])
-      display_api.update_entities(pos)
     end,
   on_destruct = display_api.on_destruct,
   on_rotate = display_api.on_rotate,
   on_receive_fields = function(pos, formname, fields, player)
-      if not minetest.is_protected(pos, player:get_player_name()) then
-        local meta = minetest.get_meta(pos)
-        if fields.ok or fields.font then
-          meta:set_string("display_text", fields.display_text)
-          meta:set_string("infotext", "\""..fields.display_text.."\"")
-          display_api.update_entities(pos)
-        end
-        if fields.font then
-          font_api.show_font_list(player, pos)
-        end
-      end
+  		local name = player:get_player_name()
+      if minetest.is_protected(pos, name) then
+        minetest.record_protection_violation(pos, name)
+      	return
+    	end
+
+    	if (fields.channel) then
+    		minetest.get_meta(pos):set_string("channel", fields.channel)
+    	end
     end,
   on_punch = display_api.update_entities,
+  digiline = {
+    receptor = {},
+    effector = {
+      action = function(pos, _, channel, msg)
+          if channel ~= minetest.get_meta(pos):get_string("channel") then
+            return
+          end
+          digimons.push_text_on_screen(pos, msg)
+        end,
+  	},
+  },
 })

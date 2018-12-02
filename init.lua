@@ -23,6 +23,7 @@ digimons.name = minetest.get_current_modname()
 digimons.path = minetest.get_modpath(digimons.name)
 
 dofile(digimons.path.."/font_mozart.lua")
+dofile(digimons.path.."/functions.lua")
 dofile(digimons.path.."/nodes.lua")
 --dofile(digimons.path.."/crafts.lua")
 
