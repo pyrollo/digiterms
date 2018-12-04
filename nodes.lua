@@ -103,3 +103,36 @@ digimons.register_monitor('digimons:cathodic_amber_monitor', {
 		},
 	},
 })
+
+digimons.register_monitor('digimons:cathodic_green_monitor', {
+	description = "Cathodic green monitor",
+	sunlight_propagates = false,
+	paramtype = "light",
+	paramtype2 = "facedir",
+	tiles = { "digimons_green_top.png", "digimons_green_bottom.png",
+						"digimons_green_sides.png", "digimons_green_sides.png^[transformFX]",
+						"digimons_green_back.png", "digimons_green_front.png",},
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
+			{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
+			{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
+			{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
+			{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
+			{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
+		},
+	},
+	display_entities = {
+		["digimons:screen"] = {
+				on_display_update = font_api.on_display_update,
+				depth = -7/16 - display_api.entity_spacing,
+				top = -1/16,
+				aspect_ratio = 0.5, maxlines = 6,
+				size = { x = 23/32, y = 10/16 },
+				color = "#00FF00", font_name = "mozart", halign="left", valing="top",
+		},
+	},
+})
