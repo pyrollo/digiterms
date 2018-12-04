@@ -68,7 +68,7 @@ function digimons.register_monitor(nodename, nodedef)
 			def[key] = value
 		end
 	end
-	minetest.register_node(nodename, nodedef)
+	minetest.register_node(nodename, def)
 end
 
 digimons.register_monitor('digimons:cathodic_amber_monitor', {
