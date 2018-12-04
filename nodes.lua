@@ -97,9 +97,9 @@ digimons.register_monitor('digimons:cathodic_amber_monitor', {
 				on_display_update = font_api.on_display_update,
 				depth = -7/16 - display_api.entity_spacing,
 				top = -1/16,
-				aspect_ratio = 0.5, maxlines = 6,
 				size = { x = 23/32, y = 10/16 },
-				color = "#FFA000", font_name = "mozart", halign="left", valing="top",
+				columns = 30, maxlines = 6,
+				color = "#FFA000", font_name = digimons.font, halign="left", valing="top",
 		},
 	},
 })
@@ -130,9 +130,9 @@ digimons.register_monitor('digimons:cathodic_green_monitor', {
 				on_display_update = font_api.on_display_update,
 				depth = -7/16 - display_api.entity_spacing,
 				top = -1/16,
-				aspect_ratio = 0.5, maxlines = 6,
 				size = { x = 23/32, y = 10/16 },
-				color = "#00FF00", font_name = "mozart", halign="left", valing="top",
+				columns = 30, lines = 6,
+				color = "#00FF00", font_name = digimons.font, halign="left", valing="top",
 		},
 	},
 })

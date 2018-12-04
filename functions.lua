@@ -60,7 +60,7 @@ local function push_text(lines, text, maxlines, maxcolumns)
 
 function digimons.push_text_on_screen(pos, text)
   local lines = get_lines(pos)
-  push_text(lines, text, 6, 20)
+  push_text(lines, text, 6, digimons.columns)
   set_lines(pos, lines)
   display_api.update_entities(pos)
 end

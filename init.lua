@@ -21,6 +21,7 @@
 digimons = {}
 digimons.name = minetest.get_current_modname()
 digimons.path = minetest.get_modpath(digimons.name)
+digimons.font = "mozart"
 
 dofile(digimons.path.."/font_mozart.lua")
 dofile(digimons.path.."/functions.lua")
