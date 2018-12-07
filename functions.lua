@@ -47,16 +47,31 @@ end
 
 local function push_text(lines, text, maxlines, maxcolumns)
 	local pos = 1
-	repeat
-		local found = text:find("\n", pos) or #text + 1
-    local line = text:sub(pos, found - 1)
-    for index = 1, math.ceil(line:len() / maxcolumns) do
-      local part = line:sub((index-1)*maxcolumns+1, index*maxcolumns)
-      push_line(lines, part, maxlines)
-    end
-		pos = found + 1
-	until (pos > (#text + 1))
-  end
+	local column = 0
+	local start = 1
+	while pos <= #text do
+		local b = text:byte(pos)
+		column = column + 1
+		if b == 0x0A then
+			push_line(lines, text:sub(start, pos - 1), maxlines)
+			start = pos + 1
+			column = 0
+		end
+		if column > maxcolumns then
+			push_line(lines, text:sub(start, pos - 1), maxlines)
+			start = pos
+			column = 1
+		end
+		if b < 0x80 then pos = pos + 1
+		elseif b >= 0xF0 then pos = pos + 4
+		elseif b >= 0xE0 then	pos = pos + 3
+		elseif b >= 0xC2 then	pos = pos + 2
+	  else pos = pos + 1 end-- Invalid char
+	end
+	if pos - 1 > start then
+		push_line(lines, text:sub(start, pos - 1), maxlines)
+	end
+end
 
 function digimons.push_text_on_screen(pos, text)
   local lines = get_lines(pos)
