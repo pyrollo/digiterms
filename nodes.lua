@@ -20,10 +20,7 @@
 
 local common_node_def = {
 	groups = { display_api = 1},
-	on_place = function(itemstack, placer, pointed_thing)
-			minetest.rotate_node(itemstack, placer, pointed_thing)
-			return display_api.on_place(itemstack, placer, pointed_thing)
-		end,
+	on_place = display_api.on_place,
 	on_destruct = display_api.on_destruct,
 	on_rotate = display_api.on_rotate,
 	on_punch = display_api.update_entities,
@@ -138,7 +135,7 @@ minetest.register_node('digiterms:cathodic_amber_monitor_off', {
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
-	on_place = minetest.rotate_node,
+	on_place = display_api.on_place,
 	on_receive_fields = common_node_def.on_receive_fields,
 	on_punch = function(pos, node)
 		minetest.swap_node(pos, {name = 'digiterms:cathodic_amber_monitor',
@@ -193,7 +190,7 @@ minetest.register_node('digiterms:cathodic_green_monitor_off', {
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
-	on_place = minetest.rotate_node,
+	on_place = display_api.on_place,
 	on_receive_fields = common_node_def.on_receive_fields,
 	on_punch = function(pos, node)
 		minetest.swap_node(pos, {name = 'digiterms:cathodic_green_monitor',
