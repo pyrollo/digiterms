@@ -88,6 +88,79 @@ local cathodic_collision_box = {
 	}
 }
 
+local lcd_node_box = {
+	type = "fixed",
+	fixed = {
+		{-7/16, 8/16, 13/32, 7/16, 7/16, 7/16},
+		{-7/16, -13/32, 13/32, 7/16, -8/16, 7/16},
+		{-8/16, 8/16, 13/32, -7/16, -8/16, 7/16},
+		{7/16, 8/16, 13/32, 8/16, -8/16, 7/16},
+		{-8/16, -8/16, 7/16, 8/16, 8/16, 8/16},
+	}
+}
+
+local lcd_collision_box = {
+	type = "fixed",
+	fixed = {
+		{-8/16, -8/16, 13/32, 8/16, 8/16, 8/16},
+	}
+}
+
+digiterms.register_monitor('digiterms:lcd_monitor', {
+	description = "LCD monitor",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	sunlight_propagates = false,
+	tiles = { "digiterms_lcd_sides.png", "digiterms_lcd_sides.png",
+						"digiterms_lcd_sides.png", "digiterms_lcd_sides.png",
+						"digiterms_lcd_back.png",  "digiterms_lcd_front.png" },
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	node_box = lcd_node_box,
+	collision_box = lcd_collision_box,
+	selection_box = lcd_collision_box,
+	display_entities = {
+		["digiterms:screen"] = {
+				on_display_update = font_api.on_display_update,
+				depth = 7/16 - display_api.entity_spacing,
+				top = -1/128, right = 1/128,
+				size = { x = 12/16, y = 12/16 },
+				columns = 12, lines = 6,
+				color = "#203020", font_name = digiterms.font, halign="left", valing="top",
+		},
+	},
+	on_punch = function(pos, node)
+		display_api.on_destruct(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("display_text", nil)
+		minetest.swap_node(pos, {name = 'digiterms:lcd_monitor_off',
+			param = node.param, param2 = node.param2 })
+	end
+})
+
+minetest.register_node('digiterms:lcd_monitor_off', {
+	description = "LCD monitor",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drops = "digiterms:lcd_monitor",
+	sunlight_propagates = false,
+	tiles = { "digiterms_lcd_sides.png", "digiterms_lcd_sides.png",
+						"digiterms_lcd_sides.png", "digiterms_lcd_sides.png",
+						"digiterms_lcd_back.png",  "digiterms_lcd_front_off.png" },
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1, not_in_creative_inventory = 1},
+	node_box = lcd_node_box,
+	collision_box = lcd_collision_box,
+	selection_box = lcd_collision_box,
+	on_place = display_api.on_place,
+	on_receive_fields = common_node_def.on_receive_fields,
+	on_punch = function(pos, node)
+		minetest.swap_node(pos, {name = 'digiterms:lcd_monitor',
+			param = node.param, param2 = node.param2 })
+		display_api.update_entities(pos)
+  end,
+})
+
 digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 	description = "Cathodic amber monitor",
 	paramtype = "light",
@@ -118,20 +191,19 @@ digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 		minetest.swap_node(pos, {name = 'digiterms:cathodic_amber_monitor_off',
 			param = node.param, param2 = node.param2 })
 	end
-
 })
 
 minetest.register_node('digiterms:cathodic_amber_monitor_off', {
+	description = "Cathodic amber monitor",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	description = "Cathodic amber monitor",
 	drops = "digiterms:cathodic_amber_monitor",
 	sunlight_propagates = false,
 	tiles = { "digiterms_amber_top.png", "digiterms_amber_bottom.png",
 						"digiterms_amber_sides.png", "digiterms_amber_sides.png^[transformFX]",
 						"digiterms_amber_back.png", "digiterms_amber_front_off.png",},
 	drawtype = "nodebox",
-	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	groups = {choppy = 1, oddly_breakable_by_hand = 1, not_in_creative_inventory = 1},
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
@@ -145,9 +217,9 @@ minetest.register_node('digiterms:cathodic_amber_monitor_off', {
 })
 
 digiterms.register_monitor('digiterms:cathodic_green_monitor', {
+	description = "Cathodic green monitor",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	description = "Cathodic green monitor",
 	sunlight_propagates = false,
 	tiles = { "digiterms_green_top.png", "digiterms_green_bottom.png",
 						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
@@ -177,16 +249,16 @@ digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 })
 
 minetest.register_node('digiterms:cathodic_green_monitor_off', {
+	description = "Cathodic green monitor",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	description = "Cathodic green monitor",
 	drops = "digiterms:cathodic_green_monitor",
 	sunlight_propagates = false,
 	tiles = { "digiterms_green_top.png", "digiterms_green_bottom.png",
 						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
 						"digiterms_green_back.png", "digiterms_green_front_off.png",},
 	drawtype = "nodebox",
-	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	groups = {choppy = 1, oddly_breakable_by_hand = 1, not_in_creative_inventory = 1},
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
