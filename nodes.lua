@@ -44,6 +44,7 @@ local common_node_def = {
 			end
 		end,
 	digiline = {
+		wire = { use_autoconnect = false },
 		receptor = {},
 		effector = {
 			action = function(pos, _, channel, msg)
@@ -71,6 +72,25 @@ function digiterms.register_monitor(nodename, nodedef)
 	minetest.register_node(nodename, def)
 end
 
+local cathodic_node_box = {
+	type = "fixed",
+	fixed = {
+		{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
+		{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
+		{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
+		{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
+		{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
+		{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
+	}
+}
+local cathodic_collision_box = {
+	type = "fixed",
+	fixed = {
+		{-8/16, -8/16, -8/16, 8/16, 8/16, 1/16},
+		{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
+	}
+}
+
 digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 	description = "Cathodic amber monitor",
 	sunlight_propagates = false,
@@ -81,17 +101,9 @@ digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 						"digiterms_amber_back.png", "digiterms_amber_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
-			{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
-			{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
-			{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
-		},
-	},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
 	display_entities = {
 		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
@@ -114,17 +126,9 @@ digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 						"digiterms_green_back.png", "digiterms_green_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
-			{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
-			{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
-			{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
-		},
-	},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
 	display_entities = {
 		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
