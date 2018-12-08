@@ -1,5 +1,5 @@
-# Digimons - Digilines Monitors
-Digilines monitors mod for Minetest using Display API / Font API.
+# Digiterms - Digilines Terminals
+Digilines monitors and keyboards mod for Minetest using Display API / Font API.
 
 **Version**: Alpha
 

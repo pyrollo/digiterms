@@ -1,8 +1,8 @@
 --[[
-    digimons mod for Minetest - Digiline monitors using Display API / Font API
+    digiterms mod for Minetest - Digiline monitors using Display API / Font API
     (c) Pierre-Yves Rollo
 
-    This file is part of digimons.
+    This file is part of digiterms.
 
     signs is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
     along with signs.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-digimons.columns = 30
+digiterms.columns = 30
 
 local function get_lines(pos)
   local lines = {}
@@ -73,9 +73,9 @@ local function push_text(lines, text, maxlines, maxcolumns)
 	end
 end
 
-function digimons.push_text_on_screen(pos, text)
+function digiterms.push_text_on_screen(pos, text)
   local lines = get_lines(pos)
-  push_text(lines, text, 6, 20)
+  push_text(lines, text, 6, digiterms.columns)
   set_lines(pos, lines)
   display_api.update_entities(pos)
 end

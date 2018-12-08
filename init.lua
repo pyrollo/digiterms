@@ -1,8 +1,8 @@
 --[[
-    digimons mod for Minetest - Digiline monitors using Display API / Font API
+    digiterms mod for Minetest - Digiline monitors using Display API / Font API
     (c) Pierre-Yves Rollo
 
-    This file is part of digimons.
+    This file is part of digiterms.
 
     signs is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,13 +18,14 @@
     along with signs.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-digimons = {}
-digimons.name = minetest.get_current_modname()
-digimons.path = minetest.get_modpath(digimons.name)
+digiterms = {}
+digiterms.name = minetest.get_current_modname()
+digiterms.path = minetest.get_modpath(digiterms.name)
+digiterms.font = "mozart"
 
-dofile(digimons.path.."/font_mozart.lua")
-dofile(digimons.path.."/functions.lua")
-dofile(digimons.path.."/nodes.lua")
---dofile(digimons.path.."/crafts.lua")
+dofile(digiterms.path.."/font_mozart.lua")
+dofile(digiterms.path.."/functions.lua")
+dofile(digiterms.path.."/nodes.lua")
+--dofile(digiterms.path.."/crafts.lua")
 
-display_api.register_display_entity("digimons:screen")
+display_api.register_display_entity("digiterms:screen")
