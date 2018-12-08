@@ -1,8 +1,8 @@
 --[[
-	digimons mod for Minetest - Digilines monitors using Display API / Font API
+	digiterms mod for Minetest - Digilines monitors using Display API / Font API
 	(c) Pierre-Yves Rollo
 
-	This file is part of digimons.
+	This file is part of digiterms.
 
 	signs is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -50,13 +50,13 @@ local common_node_def = {
 					if channel ~= minetest.get_meta(pos):get_string("channel") then
 						return
 					end
-					digimons.push_text_on_screen(pos, msg)
+					digiterms.push_text_on_screen(pos, msg)
 				end,
 		},
 	},
 }
 
-function digimons.register_monitor(nodename, nodedef)
+function digiterms.register_monitor(nodename, nodedef)
 	def = table.copy(common_node_def)
 	for key, value in pairs(nodedef) do
 		if key == 'groups' then
@@ -71,14 +71,14 @@ function digimons.register_monitor(nodename, nodedef)
 	minetest.register_node(nodename, def)
 end
 
-digimons.register_monitor('digimons:cathodic_amber_monitor', {
+digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 	description = "Cathodic amber monitor",
 	sunlight_propagates = false,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	tiles = { "digimons_amber_top.png", "digimons_amber_bottom.png",
-						"digimons_amber_sides.png", "digimons_amber_sides.png^[transformFX]",
-						"digimons_amber_back.png", "digimons_amber_front.png",},
+	tiles = { "digiterms_amber_top.png", "digiterms_amber_bottom.png",
+						"digiterms_amber_sides.png", "digiterms_amber_sides.png^[transformFX]",
+						"digiterms_amber_back.png", "digiterms_amber_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
 	node_box = {
@@ -93,25 +93,25 @@ digimons.register_monitor('digimons:cathodic_amber_monitor', {
 		},
 	},
 	display_entities = {
-		["digimons:screen"] = {
+		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
 				depth = -7/16 - display_api.entity_spacing,
 				top = -1/16,
 				size = { x = 23/32, y = 10/16 },
-				columns = 30, maxlines = 6,
-				color = "#FFA000", font_name = digimons.font, halign="left", valing="top",
+				columns = 20, lines = 6,
+				color = "#FFA000", font_name = digiterms.font, halign="left", valing="top",
 		},
 	},
 })
 
-digimons.register_monitor('digimons:cathodic_green_monitor', {
+digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 	description = "Cathodic green monitor",
 	sunlight_propagates = false,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	tiles = { "digimons_green_top.png", "digimons_green_bottom.png",
-						"digimons_green_sides.png", "digimons_green_sides.png^[transformFX]",
-						"digimons_green_back.png", "digimons_green_front.png",},
+	tiles = { "digiterms_green_top.png", "digiterms_green_bottom.png",
+						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
+						"digiterms_green_back.png", "digiterms_green_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
 	node_box = {
@@ -126,13 +126,13 @@ digimons.register_monitor('digimons:cathodic_green_monitor', {
 		},
 	},
 	display_entities = {
-		["digimons:screen"] = {
+		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
 				depth = -7/16 - display_api.entity_spacing,
 				top = -1/16,
 				size = { x = 23/32, y = 10/16 },
-				columns = 30, lines = 6,
-				color = "#00FF00", font_name = digimons.font, halign="left", valing="top",
+				columns = 20, lines = 6,
+				color = "#00FF00", font_name = digiterms.font, halign="left", valing="top",
 		},
 	},
 })
