@@ -20,10 +20,7 @@
 
 local common_node_def = {
 	groups = { display_api = 1},
-	on_place = function(itemstack, placer, pointed_thing)
-			minetest.rotate_node(itemstack, placer, pointed_thing)
-			return display_api.on_place(itemstack, placer, pointed_thing)
-		end,
+	on_place = display_api.on_place,
 	on_destruct = display_api.on_destruct,
 	on_rotate = display_api.on_rotate,
 	on_punch = display_api.update_entities,
@@ -44,6 +41,7 @@ local common_node_def = {
 			end
 		end,
 	digiline = {
+		wire = { use_autoconnect = false },
 		receptor = {},
 		effector = {
 			action = function(pos, _, channel, msg)
@@ -71,27 +69,38 @@ function digiterms.register_monitor(nodename, nodedef)
 	minetest.register_node(nodename, def)
 end
 
+local cathodic_node_box = {
+	type = "fixed",
+	fixed = {
+		{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
+		{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
+		{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
+		{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
+		{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
+		{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
+	}
+}
+local cathodic_collision_box = {
+	type = "fixed",
+	fixed = {
+		{-8/16, -8/16, -8/16, 8/16, 8/16, 1/16},
+		{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
+	}
+}
+
 digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 	description = "Cathodic amber monitor",
-	sunlight_propagates = false,
 	paramtype = "light",
 	paramtype2 = "facedir",
+	sunlight_propagates = false,
 	tiles = { "digiterms_amber_top.png", "digiterms_amber_bottom.png",
 						"digiterms_amber_sides.png", "digiterms_amber_sides.png^[transformFX]",
 						"digiterms_amber_back.png", "digiterms_amber_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
-			{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
-			{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
-			{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
-		},
-	},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
 	display_entities = {
 		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
@@ -102,29 +111,52 @@ digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 				color = "#FFA000", font_name = digiterms.font, halign="left", valing="top",
 		},
 	},
+	on_punch = function(pos, node)
+		display_api.on_destruct(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("display_text", nil)
+		minetest.swap_node(pos, {name = 'digiterms:cathodic_amber_monitor_off',
+			param = node.param, param2 = node.param2 })
+	end
+
+})
+
+minetest.register_node('digiterms:cathodic_amber_monitor_off', {
+	paramtype = "light",
+	paramtype2 = "facedir",
+	description = "Cathodic amber monitor",
+	drops = "digiterms:cathodic_amber_monitor",
+	sunlight_propagates = false,
+	tiles = { "digiterms_amber_top.png", "digiterms_amber_bottom.png",
+						"digiterms_amber_sides.png", "digiterms_amber_sides.png^[transformFX]",
+						"digiterms_amber_back.png", "digiterms_amber_front_off.png",},
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
+	on_place = display_api.on_place,
+	on_receive_fields = common_node_def.on_receive_fields,
+	on_punch = function(pos, node)
+		minetest.swap_node(pos, {name = 'digiterms:cathodic_amber_monitor',
+			param = node.param, param2 = node.param2 })
+		display_api.update_entities(pos)
+  end,
 })
 
 digiterms.register_monitor('digiterms:cathodic_green_monitor', {
-	description = "Cathodic green monitor",
-	sunlight_propagates = false,
 	paramtype = "light",
 	paramtype2 = "facedir",
+	description = "Cathodic green monitor",
+	sunlight_propagates = false,
 	tiles = { "digiterms_green_top.png", "digiterms_green_bottom.png",
 						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
 						"digiterms_green_back.png", "digiterms_green_front.png",},
 	drawtype = "nodebox",
 	groups = {choppy = 1, oddly_breakable_by_hand = 1},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-8/16, 8/16, -8/16, 8/16, 7/16, -7/16},
-			{-8/16, -8/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, 7/16, -8/16, -7/16, -5/16, -7/16},
-			{7/16, 7/16, -8/16, 8/16, -5/16, -7/16},
-			{-8/16, -8/16, -7/16, 8/16, 8/16, 1/16},
-			{-6/16, 5/16, 1/16, 6/16, -8/16, 8/16}
-		},
-	},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
 	display_entities = {
 		["digiterms:screen"] = {
 				on_display_update = font_api.on_display_update,
@@ -135,4 +167,34 @@ digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 				color = "#00FF00", font_name = digiterms.font, halign="left", valing="top",
 		},
 	},
+	on_punch = function(pos, node)
+		display_api.on_destruct(pos)
+    local meta = minetest.get_meta(pos)
+		meta:set_string("display_text", nil)
+		minetest.swap_node(pos, {name = 'digiterms:cathodic_green_monitor_off',
+			param = node.param, param2 = node.param2 })
+	end
+})
+
+minetest.register_node('digiterms:cathodic_green_monitor_off', {
+	paramtype = "light",
+	paramtype2 = "facedir",
+	description = "Cathodic green monitor",
+	drops = "digiterms:cathodic_green_monitor",
+	sunlight_propagates = false,
+	tiles = { "digiterms_green_top.png", "digiterms_green_bottom.png",
+						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
+						"digiterms_green_back.png", "digiterms_green_front_off.png",},
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	node_box = cathodic_node_box,
+	collision_box = cathodic_collision_box,
+	selection_box = cathodic_collision_box,
+	on_place = display_api.on_place,
+	on_receive_fields = common_node_def.on_receive_fields,
+	on_punch = function(pos, node)
+		minetest.swap_node(pos, {name = 'digiterms:cathodic_green_monitor',
+			param = node.param, param2 = node.param2 })
+		display_api.update_entities(pos)
+  end,
 })
