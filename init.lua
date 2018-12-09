@@ -23,9 +23,15 @@ digiterms.name = minetest.get_current_modname()
 digiterms.path = minetest.get_modpath(digiterms.name)
 digiterms.font = "mozart"
 
+display_api.register_display_entity("digiterms:screen")
+
 dofile(digiterms.path.."/font_mozart.lua")
 dofile(digiterms.path.."/functions.lua")
 dofile(digiterms.path.."/nodes.lua")
---dofile(digiterms.path.."/crafts.lua")
+dofile(digiterms.path.."/crafts.lua")
 
-display_api.register_display_entity("digiterms:screen")
+if minetest.get_modpath("scifi_nodes") then
+  print ('[digiterms] scifi_nodes mod present, adding some more nodes')
+  dofile(digiterms.path.."/scifi_nodes.lua")
+  dofile(digiterms.path.."/scifi_crafts.lua")
+end
