@@ -26,7 +26,7 @@ digiterms.font = "mozart"
 dofile(digiterms.path.."/font_mozart.lua")
 dofile(digiterms.path.."/functions.lua")
 dofile(digiterms.path.."/nodes.lua")
---dofile(digiterms.path.."/crafts.lua")
+dofile(digiterms.path.."/crafts.lua")
 
 if minetest.get_modpath("scifi_nodes") then
   print ('[digiterms] scifi_nodes present, adding some more nodes')
