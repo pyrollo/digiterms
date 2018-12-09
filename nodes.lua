@@ -144,3 +144,22 @@ digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 						"digiterms_green_sides.png", "digiterms_green_sides.png^[transformFX]",
 						"digiterms_green_back.png", "digiterms_green_front_off.png",},
 })
+
+minetest.register_node('digiterms:beige_keyboard', {
+	description = "Beige keyboard",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	sunlight_propagates = false,
+	tiles = { "digiterms_beige_keyboard_top.png",   "digiterms_beige_keyboard_bottom.png",
+						"digiterms_beige_keyboard_sides.png", "digiterms_beige_keyboard_sides.png",
+						"digiterms_beige_keyboard_sides.png", "digiterms_beige_keyboard_sides.png",},
+	drawtype = "nodebox",
+	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-8/16,  -8/16, -1/16, 8/16, -6/16, 7/16},
+			{-7/16,  -12/32, 1/32, 7/16, -11/32, 11/32},
+		}
+	}
+})
