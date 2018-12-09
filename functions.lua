@@ -152,7 +152,7 @@ function digiterms.register_monitor(
     minetest.register_node(nodename, superpose_table(ndef, nodedefon))
 
     -- Register the corresponding Off node
-    ndef.drops = nodename
+    ndef.drop = nodename
   	ndef.groups.not_in_creative_inventory = 1
     ndef.on_destruct = nil
   	ndef.on_punch = function(pos, node)
