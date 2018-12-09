@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-digiterms.register_monitor('digiterms:scifi_glassscreen', {
+digiterms.register_monitor("digiterms:scifi_glassscreen", {
   description = "Digiline glassscreen",
 	paramtype = "light",
 	paramtype2 = "facedir",
