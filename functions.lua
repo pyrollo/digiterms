@@ -128,6 +128,11 @@ local node_def_defaults = {
 					if channel ~= minetest.get_meta(pos):get_string("channel") then
 						return
 					end
+
+					if type(msg) ~= "string" then
+						return
+					end
+
 					digiterms.push_text_on_screen(pos, msg)
 				end,
 		},
