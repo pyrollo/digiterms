@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.627417"
-     inkscape:cx="66.569337"
-     inkscape:cy="19.685565"
+     inkscape:zoom="256"
+     inkscape:cx="53.637858"
+     inkscape:cy="7.7047719"
      inkscape:document-units="px"
      inkscape:current-layer="g1617"
      showgrid="true"
@@ -550,11 +550,6 @@
          width="260" />
     </pattern>
     <pattern
-       id="pattern6175-3-5"
-       xlink:href="#sand_bitmap-2-7-0"
-       inkscape:collect="always"
-       patternTransform="translate(4,80)" />
-    <pattern
        inkscape:stockid="Sand (bitmap)"
        id="sand_bitmap-2-7-0"
        height="256"
@@ -570,11 +565,6 @@
          height="260"
          width="260" />
     </pattern>
-    <pattern
-       id="pattern6175-3-5-1"
-       xlink:href="#sand_bitmap-2-7-0-0"
-       inkscape:collect="always"
-       patternTransform="translate(-16,60)" />
     <pattern
        inkscape:stockid="Sand (bitmap)"
        id="sand_bitmap-2-7-0-0"
@@ -2089,83 +2079,6 @@
          inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digiterms/textures/digiterms_white_front_off.png"
          inkscape:export-xdpi="96"
          inkscape:export-ydpi="96" />
-      <rect
-         style="fill:url(#pattern6175-3-5);fill-opacity:1"
-         y="80"
-         x="4"
-         height="16"
-         width="16"
-         id="rect3729-0-9-8"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="opacity:0.9;fill:#e9ddaf;fill-opacity:1"
-         y="80"
-         x="4"
-         height="16"
-         width="16"
-         id="rect3729-7-9-2-71"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:2.46885371"
-         id="rect6294-1-2-6"
-         width="8"
-         height="16"
-         x="4"
-         y="80"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="fill:url(#pattern6175-3-5-1);fill-opacity:1"
-         y="60"
-         x="-16"
-         height="16"
-         width="16"
-         id="rect3729-0-9-8-1"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="opacity:0.9;fill:#e9ddaf;fill-opacity:1"
-         y="60"
-         x="-16"
-         height="16"
-         width="16"
-         id="rect3729-7-9-2-71-5"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:3.14718342"
-         id="rect6294-1-2-6-9"
-         width="13"
-         height="16"
-         x="-13"
-         y="60"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
-      <rect
-         style="opacity:1;fill:#1a1a1a;fill-opacity:0.11764706;stroke-width:1.26491094"
-         id="rect6146-6-8-0-7-4"
-         width="1"
-         height="16"
-         x="-15"
-         y="60"
-         inkscape:export-filename="/home/pyrollo/dev/minetest-mods/digimons/textures/digimons_amber_top.png"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96"
-         transform="rotate(-90)" />
     </g>
   </g>
 </svg>
