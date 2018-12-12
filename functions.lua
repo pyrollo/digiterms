@@ -18,6 +18,17 @@
     along with signs.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
+local player_contexts = {}
+
+minetest.register_on_leaveplayer(function(player)
+  player_contexts[player:get_player_name()] = nil
+end)
+
+function digiterms.get_player_context(name)
+  player_contexts[name] = player_contexts[name] or {}
+  return player_contexts[name]
+end
+
 local function get_lines(pos)
   local lines = {}
   local meta = minetest.get_meta(pos)
@@ -84,9 +95,6 @@ function digiterms.push_text_on_screen(pos, text)
       minetest.log("warning", "[digiterms] At "..minetest.pos_to_string(pos)
         ..", digiterms:screen entity should have 'lines' and 'columns' attribures.")
     end
-  else
-    minetest.log("warning", "[digiterms] Node at "..minetest.pos_to_string(pos)
-      .." does not have digiterms:screen entity.")
   end
 end
 
@@ -152,6 +160,9 @@ function digiterms.register_monitor(
     minetest.register_node(nodename, superpose_table(ndef, nodedefon))
 
     -- Register the corresponding Off node
+    if ndef.display_entities then
+      ndef.display_entities["digiterms:screen"] = nil
+    end
     ndef.drop = nodename
   	ndef.groups.not_in_creative_inventory = 1
     ndef.on_destruct = nil

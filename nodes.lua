@@ -61,7 +61,7 @@ digiterms.register_monitor('digiterms:lcd_monitor', {
 	paramtype2 = "facedir",
 	sunlight_propagates = false,
 	drawtype = "nodebox",
-	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	groups = {choppy = 1, oddly_breakable_by_hand = 3},
 	node_box = lcd_node_box,
 	collision_box = lcd_collision_box,
 	selection_box = lcd_collision_box,
@@ -91,7 +91,7 @@ digiterms.register_monitor('digiterms:cathodic_amber_monitor', {
 	paramtype2 = "facedir",
 	sunlight_propagates = false,
 	drawtype = "nodebox",
-	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	groups = {oddly_breakable_by_hand = 3},
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
@@ -121,7 +121,7 @@ digiterms.register_monitor('digiterms:cathodic_green_monitor', {
 	paramtype2 = "facedir",
 	sunlight_propagates = false,
 	drawtype = "nodebox",
-	groups = {choppy = 1, oddly_breakable_by_hand = 1},
+	groups = {oddly_breakable_by_hand = 1, dig_immediate = 1},
 	node_box = cathodic_node_box,
 	collision_box = cathodic_collision_box,
 	selection_box = cathodic_collision_box,
@@ -159,7 +159,76 @@ minetest.register_node('digiterms:beige_keyboard', {
 		type = "fixed",
 		fixed = {
 			{-8/16,  -8/16, -1/16, 8/16, -6/16, 7/16},
-			{-7/16,  -12/32, 1/32, 7/16, -11/32, 11/32},
+			{-7/16,  -12/32, 0, 7/16, -11/32, 6/16},
 		}
-	}
+	},
+	digiline =
+	{
+		receptor = {}
+	},
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+			if not minetest.is_player(player) then
+				return
+			end
+			local name = player:get_player_name()
+			local context = digiterms.get_player_context(name)
+			context.formname = 'digiterms:keyboard'
+			context.pos = pos
+
+			local owned = not minetest.is_protected(context.pos, name)
+			local protected = minetest.is_protected(context.pos, '')
+			local meta = minetest.get_meta(pos)
+			local channel = meta:get_string('channel')
+			local public = meta:get_string('public')
+
+			if owned then
+				local fs = "size[8,5]"..
+					default.gui_bg..default.gui_bg_img..default.gui_slots..
+					"field[1,1;3,1;channel;Chanel;"..channel.."]"..
+					"field[1,3;6.5,1;text;Type text:;]"..
+					"field_close_on_enter[text;true]button_exit[2.5,4;3,1;send;Send]"
+				if protected then
+					fs = fs.."checkbox[4,0.6;public;Public keyboard;"..public.."]"
+				end
+				minetest.show_formspec(name, context.formname, fs)
+			else
+				if public == 'true' and channel ~= '' then
+					minetest.show_formspec(name, context.formname, "size[8,3]"..
+						default.gui_bg..default.gui_bg_img..default.gui_slots..
+						"field[1,1;6.5,1;text;Type text:;]"..
+						"field_close_on_enter[text;true]button_exit[2.5,2;3,1;send;Send]")
+				end
+			end
+		end,
 })
+
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+		if formname ~= 'digiterms:keyboard' or not minetest.is_player(player) then
+			return
+		end
+		local name = player:get_player_name()
+		local context = digiterms.get_player_context(name)
+		if context.formname ~= formname then
+			return
+		end
+
+		local owned = not minetest.is_protected(context.pos, name)
+		local protected = minetest.is_protected(context.pos, '')
+		local meta = minetest.get_meta(context.pos)
+		if owned then
+			if fields.channel ~= nil and fields.channel ~= '' then
+				meta:set_string("channel", fields.channel)
+			end
+			if fields.public ~= nil and protected then
+				meta:set_string("public", fields.public)
+			end
+		end
+
+		local channel = meta:get_string("channel")
+
+		if fields.text and channel ~= '' and
+			(owned or meta:get_string("public") == 'true') then
+			digiline:receptor_send(context.pos, digiline.rules.default, channel, fields.text)
+		end
+		return true
+	end)
