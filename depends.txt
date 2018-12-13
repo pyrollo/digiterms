@@ -9,4 +9,5 @@ basic_materials?
 homedecor?
 mesecons_microcontroller?
 mesecons_luacontroller?
+mesecons_button?
 mesecons_materials?

@@ -42,13 +42,12 @@ local electronic = material_fallback({
   'default:copper_ingot',
 })
 
-local wire = 'digilines:wire_std_00000000'
+local button = material_fallback({
+  'mesecons_button:button_off',
+  'default:stone',
+})
 
-print("Craft materials:")
-print("Body: "..(body or "None!"))
-print("Glass: "..(glass or "None!"))
-print("Electronic: "..(electronic or "None!"))
-print("Wire: "..(wire or "None!"))
+local wire = 'digilines:wire_std_00000000'
 
 minetest.register_craft({
 	output = "digiterms:lcd_monitor 1",
@@ -60,19 +59,53 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "digiterms:cathodic_amber_monitor",
+	output = "digiterms:cathodic_beige_monitor",
 	recipe = {
-		{body, body, ''},
+		{body, body, 'dye:yellow'},
 		{glass, 'dye:orange', electronic},
 		{body, body, wire}
 	}
 })
 
 minetest.register_craft({
-	output = "digiterms:cathodic_green_monitor 1",
+	output = "digiterms:cathodic_white_monitor",
 	recipe = {
-		{body, body, ''},
+		{body, body, 'dye:white'},
 		{glass, 'dye:green', electronic},
+    {body, body, wire}
+	}
+})
+
+minetest.register_craft({
+	output = "digiterms:cathodic_black_monitor",
+	recipe = {
+		{body, body, 'dye:black'},
+		{glass, 'dye:white', electronic},
+    {body, body, wire}
+	}
+})
+
+
+minetest.register_craft({
+	output = "digiterms:beige_keyboard",
+	recipe = {
+		{button, button, 'dye:yellow'},
+    {body, body, wire}
+	}
+})
+
+minetest.register_craft({
+	output = "digiterms:white_keyboard",
+	recipe = {
+		{button, button, 'dye:white'},
+    {body, body, wire}
+	}
+})
+
+minetest.register_craft({
+	output = "digiterms:black_keyboard",
+	recipe = {
+		{button, button, 'dye:black'},
     {body, body, wire}
 	}
 })
