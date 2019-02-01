@@ -198,7 +198,7 @@ local keyboard_on_rightclick = function(pos, node, player, itemstack, pointed_th
 	if owned then
 		local fs = "size[8,5]"..
 			default.gui_bg..default.gui_bg_img..default.gui_slots..
-			"field[1,1;3,1;channel;Chanel;"..channel.."]"..
+			"field[1,1;3,1;channel;Channel;"..channel.."]"..
 			"field[1,3;6.5,1;text;Type text:;]"..
 			"field_close_on_enter[text;true]button_exit[2.5,4;3,1;send;Send]"
 		if protected then
