@@ -77,7 +77,7 @@ local function push_text(lines, text, maxlines, maxcolumns)
 		elseif b >= 0xC2 then	pos = pos + 2
 	  else pos = pos + 1 end-- Invalid char
 	end
-	if pos - 1 > start then
+	if pos - 1 >= start then
 		push_line(lines, text:sub(start, pos - 1), maxlines)
 	end
 end
