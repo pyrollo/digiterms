@@ -7,7 +7,7 @@ Digilines monitors and keyboards mod for Minetest using Display API / Font API.
 
 Monitors display text received on their digiline channel and works like digilines lcd monitor.
 
-Keyboards sends text ofer their digiline channel. In protected areas, keyboard can be set to "Public" to be usable by anybody. Else, only players granted rights on the area can use the keyboard.
+Keyboards send text ofer their digiline channel. In protected areas, keyboard can be set to "Public" to be usable by anybody. Else, only players granted rights on the area can use the keyboard.
 
 Craft recipes depend on installed mods, please refer to craft guide in game.
 
