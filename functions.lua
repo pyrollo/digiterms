@@ -120,6 +120,7 @@ local node_def_defaults = {
 				minetest.get_meta(pos):set_string("channel", fields.channel)
 			end
 		end,
+	_digistuff_channelcopier_fieldname = "channel",
 	digiline = {
 		wire = { use_autoconnect = false },
 		receptor = {},
